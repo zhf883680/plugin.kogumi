@@ -26,9 +26,9 @@ def build_url(query):
 
 mode = args.get('mode', None)
 if mode is None:
-    li = xbmcgui.ListItem(u'收藏夹'.encode('utf-8'))
-    url = build_url({'mode': 'loveMovie'})
-    xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
+    # li = xbmcgui.ListItem(u'收藏夹'.encode('utf-8'))
+    # url = build_url({'mode': 'loveMovie'})
+    # xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
     li = xbmcgui.ListItem(u'bilibili视频'.encode('utf-8'))
     url = build_url({'mode': 'bilibili'})
     xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True)
@@ -63,6 +63,9 @@ elif mode[0] == 'kirikiri':
     xbmcplugin.endOfDirectory(addon_handle)
 elif mode[0]=='kirikiriFolder':
     foldername = args['foldername'][0]
+    #显示当前位置
+    li = xbmcgui.ListItem(foldername.decode(encoding="utf-8", errors="strict"))
+    xbmcplugin.addDirectoryItem(handle=addon_handle, url="", listitem=li)
     link = args['link'][0]
     #f=file('d:\\123.txt', "a+")
     #f.write(link)
