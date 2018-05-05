@@ -22,7 +22,17 @@ bangumi_list_url = 'https://www.biliplus.com/?bangumi'
 
 def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
-
+headers = {
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+    "accept-language": "zh,zh-CN;q=0.9,zh-HK;q=0.8,zh-TW;q=0.7,ja;q=0.6",
+    "cache-control": "max-age=0",
+    "upgrade-insecure-requests": "1",
+    "Host": "moe.nightdream.cc",
+    "If-None-Match": "4179fb0a534d3258f991cde540f418e5d48212ff",
+    "Referer": "http://www.kirikiri.tv",
+    "Upgrade-Insecure-Requests": "1",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+}
 
 mode = args.get('mode', None)
 if mode is None:
@@ -83,7 +93,8 @@ elif mode[0]=='kirikiriFolder':
     for item in results:        # 第二个实例
         movieurl="http://moe.sakuratv.net/e/p/"+item[0].replace("%3D","=")
         #print movieurl
-        htmlCode=urllib2.urlopen(movieurl).read()
+        request = urllib2.Request(movieurl,headers=headers) 
+        htmlCode=urllib2.urlopen(request).read()
         #print htmlCode
         pattern=re.compile(r"url: '(.*)'")
         mp4Urls=pattern.findall(htmlCode)
